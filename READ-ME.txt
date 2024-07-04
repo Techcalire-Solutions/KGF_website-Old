@@ -1,4 +1,4 @@
-  =>  Template Name    : CarServ - Car Repair HTML Template
+  =>  Template Name    : KGF - Car Repair HTML Template
 
   =>  Template Link    : https://htmlcodex.com/car-repair-html-template
 
