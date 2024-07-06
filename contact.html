@@ -161,29 +161,53 @@
                         <p class="mb-4">
                           </p>
                         
-                        <form>
+                        <form id="myForm" method="post">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control"  name="name" placeholder="Your Name" required>
                                         <label for="name">Your Name</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control"  name="phone" placeholder="Your Phone Number" required>
+                                        <label for="email">Your Phone Number</label>
+                                   
+                                </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control"  name="email" placeholder="Your Email">
+                                        <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <select class="form-select" style="height: 55px;" name="service" required>
+                                            <option selected>Select A Service</option>
+                                            <option value="Shipbreaking">Shipbreaking</option>
+                                            <option value="Demolition Services">Demolition Services</option>
+                                            <option value="Brokerage & Trading">Brokerage & Trading</option>
+                                            <option value="Site Clearance services">Site Clearance services</option>
+                                            <option value="Automotive Recycling">Automotive Recycling</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-12">
+
+                                <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                        <label for="subject">Subject</label>
-                                    </div>
+                                        <input type="date" name="date" placeholder="Service Date"
+                                               class="form-control" id="date1" style="height: 55px;">
+                                        <label for="date1">Service Date</label>
+                                      </div>
+                                      
                                 </div>
+
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a message here" name="serive-request" style="height: 100px"></textarea>
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
@@ -192,6 +216,39 @@
                                 </div>
                             </div>
                         </form>
+
+                        <script>
+                            document.getElementById('myForm').addEventListener('submit', function(event) {
+                              event.preventDefault(); // Prevent the default form submission
+                          
+                              const form = event.target;
+                              const formData = new FormData(form);
+                          
+                              const params = new URLSearchParams();
+                              formData.forEach((value, key) => {
+                                params.append(key, value);
+                              });
+                          
+                              fetch('https://script.google.com/macros/s/AKfycbzpYM7XGLPUgowefG01prStEGqakzap4JSzBRYZzoi7qPEu-T_nvLgpwfGVyBH7t0vhrA/exec', {
+                                method: 'POST',
+                                body: params
+                              })
+                              .then(response => response.json())
+                              .then(data => {
+                                if (data.result === 'success') {
+                                  alert('Request sent successfully');
+                                  form.reset();
+                                } else {
+                                  alert('There was a problem with the request');
+                                }
+                              })
+                              .catch(error => {
+                                console.error('Error:', error);
+                                alert('There was a problem with the request');
+                              });
+                            });
+                          </script>
+
                     </div>
                 </div>
             </div>
